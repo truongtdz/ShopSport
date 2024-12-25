@@ -104,7 +104,7 @@ public class OrderServiceImpl implements OrderService{
     public void updateStatusOrder(Long orderId, StatusOrderEnum status){
         OrderEntity order = orderRepository.findById(orderId).get();
 
-        order.setStatus(status);
+        order.setStatus(status.toString());
 
         orderRepository.save(order);
     }
@@ -119,7 +119,25 @@ public class OrderServiceImpl implements OrderService{
         List<DailyRevenue> dailyRevenues = new ArrayList<>();
 
         for (Object[] row : rawData) {
-            String date = ((Date) row[0]).toString();
+            String date = (row[0]).toString();
+            BigDecimal revenue = (BigDecimal) row[1];
+            dailyRevenues.add(new DailyRevenue(date, revenue));
+        }
+
+        return dailyRevenues;
+    }
+
+    @Override
+    public List<DailyRevenue> getRevenueByMonth(LocalDate startDate, LocalDate endDate) {
+        // Chuyển đổi LocalDate sang LocalDateTime
+        LocalDateTime startDateTime = startDate.atStartOfDay();
+        LocalDateTime endDateTime = endDate.atTime(LocalTime.MAX);
+
+        List<Object[]> rawData = orderRepository.findRevenueByMonth(startDateTime, endDateTime);
+        List<DailyRevenue> dailyRevenues = new ArrayList<>();
+
+        for (Object[] row : rawData) {
+            String date = (row[0]).toString();
             BigDecimal revenue = (BigDecimal) row[1];
             dailyRevenues.add(new DailyRevenue(date, revenue));
         }

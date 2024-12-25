@@ -6,6 +6,7 @@ import com.sportshop.sportshop.repository.customer.ProductRepositoryCustomer;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -17,4 +18,5 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long>, P
     ProductEntity findByNameAndStatus(String name, StatusEnum status);
     ProductEntity findByIdAndStatus(Long productId, StatusEnum status);
     List<ProductEntity> findByNameContainingOrDescriptionContainingAndStatus(String name, String description, StatusEnum status);
+    List<ProductEntity> findByStatusOrderBySoldDesc(StatusEnum status, Pageable pageable);
 }

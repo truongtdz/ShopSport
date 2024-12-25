@@ -22,7 +22,7 @@ public class OrderResponse {
     Long quantity;
     String phone;
     String address;
-    StatusOrderEnum status;
+    String status;
     UserEntity user;
     List<OrderDetailEntity> items;
 }

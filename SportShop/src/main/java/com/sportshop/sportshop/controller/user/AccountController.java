@@ -17,6 +17,7 @@ import com.sportshop.sportshop.dto.request.CreateUserRequest;
 import com.sportshop.sportshop.dto.request.UpdateUserRequest;
 import com.sportshop.sportshop.entity.UserEntity;
 import com.sportshop.sportshop.enums.GenderEnum;
+import com.sportshop.sportshop.enums.StatusOrderEnum;
 import com.sportshop.sportshop.service.CartService;
 import com.sportshop.sportshop.service.OrderService;
 import com.sportshop.sportshop.service.UserService;
@@ -98,5 +99,11 @@ public class AccountController {
         
         return new ModelAndView("/user/history")
                 .addObject("orders", orderService.historyBuy(user.getId()));
+    }
+
+    @GetMapping("/order/{orderId}")
+    public String updateStatusOrder(@PathVariable("orderId") Long orderId) {
+        orderService.updateStatusOrder(orderId, StatusOrderEnum.Da_Huy);
+        return "redirect:/user/history";
     }
 }

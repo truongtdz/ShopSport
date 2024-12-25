@@ -22,6 +22,7 @@ public class ProductResponse {
     String description;
     String color;
     Long quantity;
+    Long sold;
     Date createDate;
     Date updateDate;
     CategoryEntity category;

@@ -39,6 +39,10 @@ public class ProductEntity {
     @Column(name = "quantity")
     Long quantity;
 
+    @Column(name = "sold")
+    Long sold;
+
+
     @Column(name = "create_date")
     Date createDate;
 

@@ -32,6 +32,8 @@ public class AdminController {
                 .addObject("productQuantity", productService.countProduct())
                 .addObject("orderQuantity", orderService.getCount())
                 .addObject("increase", orderService.getIncrease())
-                .addObject("revenues", orderService.getRevenueByDay(LocalDate.now().minusMonths(1), LocalDate.now()));
+                .addObject("revenueByDay", orderService.getRevenueByDay(LocalDate.now().minusMonths(1), LocalDate.now()))
+                .addObject("revenueByMonth", orderService.getRevenueByMonth(LocalDate.now().minusYears(1), LocalDate.now()))
+                .addObject("productMostSold", productService.getProductMostSold());
     }
 }

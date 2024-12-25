@@ -40,4 +40,6 @@ public interface ProductService {
     // Search Product
     List<ProductResponse> searchProduct(SearchRequest request);
 
+    public List<ProductResponse> getProductMostSold();
+
 }

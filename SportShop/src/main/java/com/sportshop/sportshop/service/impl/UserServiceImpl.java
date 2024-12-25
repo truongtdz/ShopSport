@@ -238,6 +238,7 @@ public class UserServiceImpl implements UserService {
             
             ProductEntity product = cart.getProduct();
             product.setQuantity(product.getQuantity() - cart.getQuantity());
+            product.setSold(product.getSold() + cart.getQuantity());
             productRepository.save(product);
         }
 
@@ -247,7 +248,7 @@ public class UserServiceImpl implements UserService {
         newOrder.setDate(new Date());
         newOrder.setAddress(address.getAddress());
         newOrder.setPhone(address.getPhone());
-        newOrder.setStatus(StatusOrderEnum.Dang_Xu_Ly);
+        newOrder.setStatus(StatusOrderEnum.Dang_Xu_Ly.toString());
 
         orderRepository.save(newOrder);
 

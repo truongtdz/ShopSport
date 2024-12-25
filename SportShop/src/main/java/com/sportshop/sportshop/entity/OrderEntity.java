@@ -36,9 +36,8 @@ public class OrderEntity {
     @Column(name = "phone")
     String phone;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "status_order")
-    StatusOrderEnum status;
+    String status;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

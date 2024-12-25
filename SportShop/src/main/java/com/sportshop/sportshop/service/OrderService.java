@@ -37,4 +37,6 @@ public interface OrderService {
 
     List<DailyRevenue> getRevenueByDay(LocalDate startDate, LocalDate endDate);
 
+    public List<DailyRevenue> getRevenueByMonth(LocalDate startDate, LocalDate endDate);
+
 }

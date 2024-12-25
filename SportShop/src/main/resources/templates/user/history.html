@@ -231,6 +231,13 @@
                 <span class="price-info" th:text="${order.status}"></span>
               </div>
             </div>
+
+            <div class="confirm-button" th:if="${order.status != 'Da_Huy'}">
+              <a class="btn btn-danger" th:href="@{/user/order/{id}(id=${order.id})}">
+                <i class="fa-solid fa-circle-xmark"></i>
+                  Hủy Đơn Hàng
+              </a>
+            </div>
           </div>
         </div>
 

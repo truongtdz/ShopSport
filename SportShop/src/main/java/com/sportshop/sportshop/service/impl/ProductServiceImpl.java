@@ -14,7 +14,10 @@ import com.sportshop.sportshop.repository.BrandRepository;
 import com.sportshop.sportshop.repository.CategoryRepository;
 import com.sportshop.sportshop.repository.ProductRepository;
 import com.sportshop.sportshop.service.ProductService;
+import org.hibernate.query.spi.Limit;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -73,6 +76,17 @@ public class ProductServiceImpl implements ProductService {
                 .sorted(Comparator.comparing(ProductResponse::getCreateDate).reversed())  // Sắp xếp theo ngày tạo từ mới đến cũ
                 .limit(10)  // Lấy 10 sản phẩm mới nhất
                 .collect(Collectors.toList());  // Thu thập kết quả vào danh sách
+
+        return products;  // Trả về danh sách sản phẩm mới nhất
+    }
+
+    @Override
+    public List<ProductResponse> getProductMostSold() {
+        List<ProductResponse> products = new ArrayList<>();
+        Pageable pageable = PageRequest.of(0, 8);
+        for(ProductEntity item : productRepository.findByStatusOrderBySoldDesc(StatusEnum.Active, pageable)){
+            products.add(productMapper.toProductResponse(item));
+        }
 
         return products;  // Trả về danh sách sản phẩm mới nhất
     }

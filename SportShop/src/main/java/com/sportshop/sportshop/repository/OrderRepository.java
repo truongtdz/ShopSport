@@ -20,4 +20,12 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
                "ORDER BY DATE(o.date) ASC", nativeQuery = true)
     List<Object[]> findRevenueByDay(@Param("startDate") LocalDateTime startDate, 
                                 @Param("endDate") LocalDateTime endDate);
+
+    @Query(value = "SELECT DATE_FORMAT(o.date, '%Y-%m') AS month, SUM(o.total) AS revenue " +
+            "FROM orders o WHERE o.date BETWEEN :startDate AND :endDate " +
+            "GROUP BY DATE_FORMAT(o.date, '%Y-%m') " +
+            "ORDER BY DATE_FORMAT(o.date, '%Y-%m') ASC", nativeQuery = true)
+    List<Object[]> findRevenueByMonth(@Param("startDate") LocalDateTime startDate,
+                                      @Param("endDate") LocalDateTime endDate);
+
 }

@@ -130,6 +130,11 @@
         opacity: 1;
       }
 
+      .revenue {
+        display: flex;
+        gap: 20px;
+      }
+
       .card-container {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -247,6 +252,10 @@
         padding-bottom: 10px;
         border-bottom: 2px solid #f1f1f1;
       }
+
+      .top{
+        margin-top: 20px;
+      }
       
       /* Table styling */
       table {
@@ -278,6 +287,27 @@
       tbody tr:hover {
         background: rgba(75, 108, 183, 0.05);
       }
+
+      /* Action Buttons */
+        .action-btn {
+          padding: 8px 15px;
+          border-radius: 8px;
+          border: none;
+          color: white;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          font-size: 14px;
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          text-decoration: none;
+          opacity: 0.9;
+          margin-right: 5px;
+        }
+
+        .view-btn {
+          background: var(--primary-gradient);
+        }
 
 
       /* Loading screen styles */
@@ -378,21 +408,72 @@
           </div>
         </div>
 
-        <h5>Doanh Thu Theo Ngày 1 Tháng Trở Lại</h5>
-        <table>
-          <thead>
+        <div class="revenue">
+          <table>
+            <caption><h5>Doanh Thu Theo Ngày</h5></caption>
+            <thead>
             <tr>
               <th>Ngày</th>
               <th>Doanh Thu</th>
             </tr>
-          </thead>
-          <tbody>
-            <tr th:each="item : ${revenues}">
+            </thead>
+            <tbody>
+            <tr th:each="item : ${revenueByDay}">
               <td th:text="${item.date}"></td>
               <td th:text="${item.revenue} + '$'"></td>
             </tr>
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+
+          <table>
+            <caption><h5>Doanh Thu Theo Tháng</h5></caption>
+            <thead>
+            <tr>
+              <th>Tháng</th>
+              <th>Doanh Thu</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${revenueByMonth}">
+              <td th:text="${item.date}"></td>
+              <td th:text="${item.revenue} + '$'"></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="top">
+          <h5>Top Sản Phẩm Bán Chạy</h5>
+          <table>
+            <thead>
+            <tr>
+              <th>Mã sản phẩm</th>
+              <th>Tên sản phẩm</th>
+              <th>Số lượng trong kho</th>
+              <th>Số lượng đã bán</th>
+              <th>Thao tác</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${productMostSold}">
+              <td th:text="${product.id}"></td>
+              <td th:text="${product.name}"></td>
+              <td th:text="${product.quantity}"></td>
+              <td th:text="${product.sold}"></td>
+              <td>
+                <a
+                        th:href="@{/admin/product/{id}(id=${product.id})}"
+                        class="action-btn view-btn"
+                >
+                  <i class="fas fa-eye"></i> Xem
+                </a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+
       </div>
     </div>
 

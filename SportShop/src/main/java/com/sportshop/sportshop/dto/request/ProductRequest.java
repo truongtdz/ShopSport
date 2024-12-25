@@ -18,6 +18,7 @@ public class ProductRequest {
     String description;
     String color;
     Long quantity;
+    Long sold;
     Date createDate;
     Date updateDate;
     Long categoryId;
